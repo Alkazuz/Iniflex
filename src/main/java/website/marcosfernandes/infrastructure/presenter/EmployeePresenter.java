@@ -78,12 +78,14 @@ public class EmployeePresenter {
         System.out.println("\n--- Quantos Salários Mínimos Cada Funcionário Ganha ---");
         for (Employee employee : employees) {
             BigDecimal multiple = employee.getSalary().divide(minimumWage, 2, java.math.RoundingMode.DOWN);
-            System.out.println(String.format(
-                    "%s: %.2f",
-                    employee.getName(),
-                    multiple
-            ));
+            String formattedMultiple = formatDecimal(multiple);
+            System.out.println(employee.getName() + ": " + formattedMultiple);
         }
+    }
+
+    private String formatDecimal(BigDecimal value) {
+        DecimalFormat df = new DecimalFormat("0.00", SYMBOLS);
+        return df.format(value);
     }
 
     private String formatDate(LocalDate date) {
