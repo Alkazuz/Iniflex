@@ -5,7 +5,7 @@ import website.marcosfernandes.infrastructure.data.EmployeeRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.YearMonth;
+import java.time.Period;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -74,6 +74,6 @@ public class EmployeeService {
     }
 
     public int calculateAge(LocalDate birthDate) {
-        return YearMonth.now().getYear() - birthDate.getYear();
+        return Period.between(birthDate, LocalDate.now()).getYears();
     }
 }
