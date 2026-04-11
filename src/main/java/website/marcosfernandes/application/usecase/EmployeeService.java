@@ -1,6 +1,6 @@
 package website.marcosfernandes.application.usecase;
 
-import website.marcosfernandes.domain.entity.Employee;
+import website.marcosfernandes.domain.entity.Funcionario;
 import website.marcosfernandes.infrastructure.data.EmployeeRepository;
 
 import java.math.BigDecimal;
@@ -17,27 +17,27 @@ public class EmployeeService {
         this.repository = repository;
     }
 
-    public List<Employee> getAllEmployees() {
+    public List<Funcionario> getAllEmployees() {
         return repository.getAll();
     }
 
-    public void removeEmployeeByName(List<Employee> employees, String name) {
+    public void removeEmployeeByName(List<Funcionario> employees, String name) {
         employees.removeIf(employee -> employee.getName().equals(name));
     }
 
-    public void applyTenPercentRaise(List<Employee> employees) {
+    public void applyTenPercentRaise(List<Funcionario> employees) {
         employees.forEach(employee -> {
             BigDecimal newSalary = employee.getSalary().multiply(new BigDecimal("1.10"));
             employee.setSalary(newSalary);
         });
     }
 
-    public Map<String, List<Employee>> groupByRole(List<Employee> employees) {
+    public Map<String, List<Funcionario>> groupByRole(List<Funcionario> employees) {
         return employees.stream()
-                .collect(Collectors.groupingBy(Employee::getRole));
+                .collect(Collectors.groupingBy(Funcionario::getRole));
     }
 
-    public List<Employee> filterByBirthdayMonths(List<Employee> employees, int... months) {
+    public List<Funcionario> filterByBirthdayMonths(List<Funcionario> employees, int... months) {
         return employees.stream()
                 .filter(employee -> {
                     int employeeMonth = employee.getBirthDate().getMonthValue();
@@ -51,21 +51,21 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public Employee findOldestEmployee(List<Employee> employees) {
+    public Funcionario findOldestEmployee(List<Funcionario> employees) {
         return employees.stream()
                 .min((e1, e2) -> e1.getBirthDate().compareTo(e2.getBirthDate()))
                 .orElse(null);
     }
 
-    public List<Employee> sortByNameAscending(List<Employee> employees) {
+    public List<Funcionario> sortByNameAscending(List<Funcionario> employees) {
         return employees.stream()
                 .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                 .collect(Collectors.toList());
     }
 
-    public BigDecimal sumAllSalaries(List<Employee> employees) {
+    public BigDecimal sumAllSalaries(List<Funcionario> employees) {
         return employees.stream()
-                .map(Employee::getSalary)
+                .map(Funcionario::getSalary)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

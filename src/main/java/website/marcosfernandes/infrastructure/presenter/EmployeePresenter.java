@@ -1,6 +1,6 @@
 package website.marcosfernandes.infrastructure.presenter;
 
-import website.marcosfernandes.domain.entity.Employee;
+import website.marcosfernandes.domain.entity.Funcionario;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -16,14 +16,14 @@ public class EmployeePresenter {
     private static final DecimalFormatSymbols SYMBOLS = new DecimalFormatSymbols(new Locale("pt", "BR"));
     private static final DecimalFormat CURRENCY_FORMATTER = new DecimalFormat("#,##0.00", SYMBOLS);
 
-    public void printEmployeeList(List<Employee> employees) {
+    public void printEmployeeList(List<Funcionario> employees) {
         System.out.println("\n--- Lista de Funcionários ---");
-        for (Employee employee : employees) {
+        for (Funcionario employee : employees) {
             printEmployee(employee);
         }
     }
 
-    public void printEmployee(Employee employee) {
+    public void printEmployee(Funcionario employee) {
         String formattedDate = formatDate(employee.getBirthDate());
         String formattedSalary = formatCurrency(employee.getSalary());
         System.out.println(String.format(
@@ -35,36 +35,36 @@ public class EmployeePresenter {
         ));
     }
 
-    public void printGroupedByRole(Map<String, List<Employee>> grouped) {
+    public void printGroupedByRole(Map<String, List<Funcionario>> grouped) {
         System.out.println("\n--- Funcionários Agrupados por Função ---");
         grouped.forEach((role, employees) -> {
             System.out.println("\nFunção: " + role);
-            for (Employee employee : employees) {
+            for (Funcionario employee : employees) {
                 printEmployee(employee);
             }
         });
     }
 
-    public void printBirthdayMonths(List<Employee> employees) {
+    public void printBirthdayMonths(List<Funcionario> employees) {
         System.out.println("\n--- Funcionários que Fazem Aniversário em Outubro e Dezembro ---");
         if (employees.isEmpty()) {
             System.out.println("Nenhum funcionário encontrado.");
         } else {
-            for (Employee employee : employees) {
+            for (Funcionario employee : employees) {
                 printEmployee(employee);
             }
         }
     }
 
-    public void printOldestEmployee(Employee employee, int age) {
+    public void printOldestEmployee(Funcionario employee, int age) {
         System.out.println("\n--- Funcionário Mais Velho ---");
         System.out.println("Nome: " + employee.getName());
         System.out.println("Idade: " + age + " anos");
     }
 
-    public void printAlphabeticalList(List<Employee> employees) {
+    public void printAlphabeticalList(List<Funcionario> employees) {
         System.out.println("\n--- Funcionários em Ordem Alfabética ---");
-        for (Employee employee : employees) {
+        for (Funcionario employee : employees) {
             printEmployee(employee);
         }
     }
@@ -74,18 +74,13 @@ public class EmployeePresenter {
         System.out.println("Total: " + formatCurrency(total));
     }
 
-    public void printMinimumWageMultiples(List<Employee> employees, BigDecimal minimumWage) {
+    public void printMinimumWageMultiples(List<Funcionario> employees, BigDecimal minimumWage) {
         System.out.println("\n--- Quantos Salários Mínimos Cada Funcionário Ganha ---");
-        for (Employee employee : employees) {
+        for (Funcionario employee : employees) {
             BigDecimal multiple = employee.getSalary().divide(minimumWage, 2, java.math.RoundingMode.DOWN);
             String formattedMultiple = formatDecimal(multiple);
             System.out.println(employee.getName() + ": " + formattedMultiple);
         }
-    }
-
-    private String formatDecimal(BigDecimal value) {
-        DecimalFormat df = new DecimalFormat("0.00", SYMBOLS);
-        return df.format(value);
     }
 
     private String formatDate(LocalDate date) {
@@ -94,5 +89,10 @@ public class EmployeePresenter {
 
     private String formatCurrency(BigDecimal value) {
         return CURRENCY_FORMATTER.format(value);
+    }
+
+    private String formatDecimal(BigDecimal value) {
+        DecimalFormat df = new DecimalFormat("0.00", SYMBOLS);
+        return df.format(value);
     }
 }

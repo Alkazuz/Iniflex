@@ -2,11 +2,11 @@ package website.marcosfernandes.domain.entity;
 
 import java.time.LocalDate;
 
-public class Person {
+public class Pessoa {
     private String name;
     private LocalDate birthDate;
 
-    public Person(String name, LocalDate birthDate) {
+    public Pessoa(String name, LocalDate birthDate) {
         this.name = name;
         this.birthDate = birthDate;
     }

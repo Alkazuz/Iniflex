@@ -3,11 +3,11 @@ package website.marcosfernandes.domain.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Employee extends Person {
+public class Funcionario extends Pessoa {
     private BigDecimal salary;
     private String role;
 
-    public Employee(String name, LocalDate birthDate, BigDecimal salary, String role) {
+    public Funcionario(String name, LocalDate birthDate, BigDecimal salary, String role) {
         super(name, birthDate);
         this.salary = salary;
         this.role = role;
