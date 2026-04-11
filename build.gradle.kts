@@ -23,3 +23,7 @@ tasks.test {
 application {
     mainClass.set("website.marcosfernandes.Main")
 }
+
+tasks.run.get().doFirst {
+    System.setProperty("file.encoding", "UTF-8")
+}
